@@ -1,10 +1,10 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
-            <img src="<?php echo e(asset('images/aey-logo5.png')); ?>" width="50"></img>
+            <img class ="rounded-circle" src="<?php echo e(asset('images/aey-logo5.png')); ?>" width="50"></img>
         </div>
-        <div class="sidebar-brand-text mx-3">Aeron</div>
+        <div class="sidebar-brand-text mx-3">Aey BOOK</div>
     </a>
 
     <!-- Divider -->
