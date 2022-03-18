@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/', function () {   
-    return redirect('/login');;
+    return redirect('/landpage');;
 });
 
 
@@ -50,7 +50,8 @@ Route::get('/fetch-postcard',[PostcardController::class,'fetchpostcard']);
 //api
 Route::get('api',[ApiController::class,'index']);
 
-
+//landpage
+Route::get('/landpage',[DashboardController::class,'landpage']);
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
