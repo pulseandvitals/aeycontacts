@@ -34,14 +34,13 @@ $(document).ready(function(){
     $('#modalcollab').modal('show');   
   })
 
-    $(document).on('click','#addcollab', function(e){
+    $(document).on('click','#applycollab', function(e){
         e.preventDefault();
         var collab_id = $(this).val();
-        $('button').removeClass('btn btn-primary');
+        $(this).removeClass('btn btn-primary');
         $('i').removeClass('fa fa-plus');
-        $('button').addClass('btn btn-outline-success');
+        $(this).addClass('btn btn-outline-success');
         $('i').addClass('fa fa-check');
-        $('#modalcollab').modal('hide');
         
     })
    
@@ -75,7 +74,7 @@ $(document).ready(function(){
                     $('.toastadded').html('');
                     $('.toastadded').append('<div class="toast-body">'+response.success+'</div>');
                     fetchpostcard();
-                }
+                }   
 
             }
         })

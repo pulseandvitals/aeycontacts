@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Postcard;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Notification;
+use Illuminate\Support\Facades\Auth;
 
 class PostcardController extends Controller
 {
@@ -20,6 +22,13 @@ class PostcardController extends Controller
         'data' => $fetch,
       ]);
 
+    }
+    public function fetchnotification(){
+
+      $fetch = Notification::orderBy('id','DESC')->get();
+      return response()->json([
+        'data' => $fetch,
+      ]);
     }
     public function addpostcard(){
         $validator = Validator::make(request()->all(), [
@@ -47,13 +56,20 @@ class PostcardController extends Controller
             $add->image = $new_name;
             $add->postcard_caption = request()->input('postcard_caption');
             $add->save();
+
+            $id = Auth::user()->id;
+            $notif = new Notification;
+            $notif->user_id = $id;
+            $notif->notification = request()->input('postcard_title');
+            $notif->save();
+
             return response()->json([
                 'status'=> 200,
                 'success'=> 'Successfully added postcard',
             ]);
 
           }
-
+  
     }
  
 }
