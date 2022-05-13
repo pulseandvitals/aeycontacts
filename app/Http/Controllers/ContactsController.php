@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Auth;
 
+
 class ContactsController extends Controller
 {
     public function index(){
-       
-       $data = Contact::all();
+
        return view('contact-form.contact-list');
-        
+
     }
     public function fetchcontacts(){
         $id = Auth::user()->id;
@@ -58,7 +58,7 @@ class ContactsController extends Controller
             'cityaddress'=>'required|max:40',
             'dialnumber'=>'required|max:40',
         ]);
-    
+
         if($validator->fails()){
         return response()->json([
             'status'=>400,
@@ -94,7 +94,7 @@ class ContactsController extends Controller
          'error' => $validator->errors()->all(),
          ]);
         }
-        else {  
+        else {
         $upd = Contact::find($id);
         $upd->name = $request->input('name');
         $upd->city_address = $request->input('city_address');

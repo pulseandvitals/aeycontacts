@@ -5,6 +5,7 @@ use App\Http\Controllers\StickyNoteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostcardController;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,13 +20,15 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {   
+Route::get('/', function () {
     return redirect('/landpage');;
 });
 
 
 //dashboardview
 Route::get('/dashboard',[DashboardController::class,'index']);
+
+Route::post('/status', [UserController::class,'changeStatus']);
 
 
 //contact route

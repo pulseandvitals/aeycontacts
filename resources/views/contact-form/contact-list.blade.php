@@ -2,14 +2,17 @@
 @include('modals.contact-list-modal')
 @section('page', 'Users')
 @section('content')
+<header>
+  <title>Contacts</title>
+</header>
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Contacts</h1>
-        
+
         <div class="d-none d-sm-inline-block">
             <button class="btn btn-sm btn-info shadow-sm" data-toggle="modal" data-target="#addcontact"><i
-            class="fas fa-plus fa-sm text-white-50"></i>Add New Contact</button>
+            class="fas fa-plus fa-sm text-white-50"></i>Add</button>
         </div>
     </div>
     <!-- Content Row -->
@@ -27,17 +30,17 @@
                                     <th scope="col">Name</th>
                                     <th scope="col">City Address</th>
                                     <th scope="col">Dial Number</th>
-                                    <th scope="col">Websites</th> 
-                                    <th scope="col">Action</th>            
+                                    <th scope="col">Websites</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                              <tbody>  
-                             
+                              <tbody>
+
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>   
+            </div>
         </div>
     </div>
 </div>
@@ -52,7 +55,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <input type="hidden" id="del_id"> 
+        <input type="hidden" id="del_id">
         <p>Are you sure you want to delete this contact?</p>
       </div>
       <div class="modal-footer">
@@ -111,7 +114,7 @@
       </div>
       <div class="modal-body">
         <form>
-            <input type="hidden" id="edit_id"> 
+            <input type="hidden" id="edit_id">
             <div class="col-md-12">
             <label for="inputEmail4" class="form-label">Name</label>
             <input type="text" class="form-control" id="edit_name">
@@ -142,12 +145,12 @@
 
 </div>
 <div class="toast bg-success text-white toastadded" style="position: fixed; bottom: 30px; right: 10px;">
-  
+
 </div>
 <div class="toast bg-danger text-white toasterror" style="position: fixed; bottom: 30px; right: 10px;">
-  
+
 </div>
 <div class="toast bg-success text-white toastupdate" style="position: fixed; bottom: 30px; right: 10px;">
-  
+
 </div>
 @endsection

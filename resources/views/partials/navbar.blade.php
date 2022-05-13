@@ -60,8 +60,8 @@
                     Notification
                 </h6>
                 <div class="columns"></div>
-                
-               
+
+
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
             </div>
         </li>
@@ -138,7 +138,10 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-white-600 small">{{Auth::user()->name}}</span>
+                <span class="mr-2 d-none d-lg-inline text-white-600 small">
+                    <small class="text-success">Hello!</small>
+                    {{ Auth::user()->name }}
+                </span>
                 <img class="img-profile rounded-circle"
                     src="images/950980277.jpg">
             </a>
