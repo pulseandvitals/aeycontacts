@@ -15,7 +15,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Name')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control <?php $__errorArgs = ['name'];
+                                <input id="name" type="text" class="form-control rounded-0 <?php $__errorArgs = ['name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -43,7 +43,7 @@ unset($__errorArgs, $__bag); ?>
                             <label for="email" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Email Address')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
+                                <input id="email" type="email" class="form-control rounded-0 <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -66,12 +66,21 @@ endif;
 unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
-
+                        <div class="row mb-3">
+                            <label for="role" class="col-md-4 col-form-label text-md-end">Role</label>
+                            <div class="col-md-6">
+                                <select type="select" name="role" class="form-control rounded-0">
+                                    <option value="jobseeker">Job Seeker</option>
+                                    <option value="guest">Guest</option>
+                                    <option value="employer">Employer</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Password')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
+                                <input id="password" type="password" class="form-control rounded-0 <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -99,13 +108,13 @@ unset($__errorArgs, $__bag); ?>
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Confirm Password')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control rounded-0" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary rounded-0">
                                     <?php echo e(__('Register')); ?>
 
                                 </button>

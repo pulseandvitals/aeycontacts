@@ -11,25 +11,25 @@ function fetchnote(){
             // console.log(response.data)
             $('.card-columns').html('');
             $.each(response.data,function(key, item){
-              $('.card-columns').append('<div class="card-body">\
-                        <div class="table-responsive">\
-                        <div class="card shadow mb-4 bg-dark text-white">\
+              $('.card-columns').append('\
                         <div class="card-body">\
-                        <h5 class="card-title text-success">'+item.card_title+'</h5>\
-                        <h6 class="card-subtitle mb-2 text-muted">'+item.card_subtitle+'</h6>\
-                        <p class="card-text">'+item.card_body+'</p>\
-                        <a href="'+item.card_link+'" class="card-link">Card link</a>\
-                        <a href="'+item.card_another_link+'" class="card-link">Link 2</a>\
-                        <button type="button" class="btn btn-danger btn-sm btn-delete" style="position: absolute; bottom:10px;right:10px;" id="delete" value="'+item.id+'"><i class="fa fa-trash"></i></button>\
-                    </div>\
-                    </div>\
-                    </div>\
-                </div>');
-
+                            <div class="table-responsive">\
+                                <div class="card shadow mb-4 bg-dark text-white">\
+                                    <div class="card-body">\
+                                        <h5 class="card-title text-success">'+item.card_title+'</h5>\
+                                        <h6 class="card-subtitle mb-2 text-muted">'+item.card_subtitle+'</h6>\
+                                        <p class="card-text">'+item.card_body+'</p>\
+                                            <a href="'+item.card_link+'" class="card-link">Card link</a>\
+                                        <a href="'+item.card_another_link+'" class="card-link">Link 2</a>\
+                                        <button type="button" class="btn btn-danger btn-sm btn-delete" style="position: absolute; bottom:10px;right:10px;" id="delete" value="'+item.id+'"><i class="fa fa-trash"></i></button>\
+                                    </div>\
+                                </div>\
+                            </div>\
+                        </div>');
+                    })
+                }
             })
         }
-    })
- }
 $(document).on('click','#delete',function(e){
 e.preventDefault();
 var del_id = $(this).val();
@@ -76,7 +76,7 @@ $(document).on('click','#add_note', function(e){
     }
 });
     $.ajax({
-        
+
         type: 'POST',
         url: '/insert-note',
         data: data,
@@ -88,7 +88,7 @@ $(document).on('click','#add_note', function(e){
                 $('.toasterror').toast('show');
                 $('.toasterror').html('');
                 $('.toasterror').append(' <div class="toast-body">'+response.error+'</div>');
-                  
+
             }
             else {
                 console.log(response.success);
@@ -104,4 +104,5 @@ $(document).on('click','#add_note', function(e){
 })
 })
 </script>
-<?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\aeycontacts\resources\views/modals/sticky-note-js.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?>
+<?php /**PATH C:\laragon\www\aeycontacts\resources\views/modals/sticky-note-js.blade.php ENDPATH**/ ?>

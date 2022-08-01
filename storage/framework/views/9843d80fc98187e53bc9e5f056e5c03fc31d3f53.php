@@ -49,9 +49,10 @@
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
+
+                <i class="fas fa-bell fa-fw text-warning"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <i class="badge badge-danger">2</i>
             </a>
             <!-- Dropdown - Alerts -->
             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -59,76 +60,19 @@
                 <h6 class="dropdown-header bg-dark">
                     Notification
                 </h6>
-                <div class="columns"></div>
-
-
+                <div class="text-xs"> <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-gray-800">
+                                <i class="fas fa-image text-white"></i>
+                        </div>
+                    </div>
+                        <div>
+                            <div class="small text-gray-500"><?php echo e(now()); ?></div>
+                            qqqqqqqqqqqqqqqqqqqqqqqq
+                        </div>
+                    </a>
+                    </div>
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-            </div>
-        </li>
-
-        <!-- Nav Item - Messages -->
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-            </a>
-            <!-- Dropdown - Messages -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                    Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                            alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div class="font-weight-bold">
-                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                            problem I've been having.</div>
-                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                            alt="...">
-                        <div class="status-indicator"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">I have the photos that you ordered last month, how
-                            would you like them sent to you?</div>
-                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                            alt="...">
-                        <div class="status-indicator bg-warning"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Last month's report looks great, I am very happy with
-                            the progress so far, keep up the good work!</div>
-                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="dropdown-list-image mr-3">
-                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                            alt="...">
-                        <div class="status-indicator bg-success"></div>
-                    </div>
-                    <div>
-                        <div class="text-truncate">Am I a good boy? The reason I ask is because someone
-                            told me that people say this to all dogs, even if they aren't good...</div>
-                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                    </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
             </div>
         </li>
 
@@ -139,31 +83,40 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-white-600 small">
-                    <small class="text-success">Hello!</small>
-                    <?php echo e(Auth::user()->name); ?>
+                    <small class="<?php echo e(Auth::user()->role == 'jobseeker' ? 'text-success' : 'text-info'); ?>">
+                        <?php echo e(Auth::user()->role == 'jobseeker' ?  'Job Seeker'
+                            : (Auth::user()->role == 'employer' ? 'Employer' : 'Guest')); ?>
+
+                    </small>
+                        <?php echo e(Auth::user()->name); ?>
 
                 </span>
                 <img class="img-profile rounded-circle"
-                    src="images/950980277.jpg">
+                    src="<?php echo e(Auth::user()->current_avatar
+                        ?  asset('/images/'.Auth::user()->current_avatar)
+                        : asset('images/default.jpg')); ?>"
+                >
             </a>
             <!-- Dropdown - User Information -->
+            <?php $isEmpty = App\Models\Profile::where('profile_id',Auth::user()->id)->count(); ?>
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Profile
+                <a class="dropdown-item" href="<?php echo e($isEmpty != 0 ? route('profile.show',Auth::user()->id)
+                    : route('profile.add')); ?>">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-primary"></i>
+                        My Profile
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-success"></i>
                     Settings
                 </a>
                 <a class="dropdown-item" href="#">
-                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-list fa-sm fa-fw mr-2 text-warning"></i>
                     Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-dark"></i>
                     Logout
                 </a>
             </div>
@@ -173,39 +126,37 @@
 
 </nav>
 
+<?php $__env->startSection('scripts'); ?>
 <script>
 $(document).ready(function(){
-    console.log('aw')
     fetchnotification();
-   function fetchnotification(){
-    $.ajax({
-        type: 'GET',
-        url: '/fetchnotification',
-        dataType: 'json',
-        success: function(response) {
-            console.log(response);
-            $('.columns').html('');
-            $.each(response.data,function(key, item){
-            console.log('awe')
-            var date = new Date(item.created_at).toLocaleDateString()
-            $('.columns').append(' <a class="dropdown-item d-flex align-items-center" href="#">\
-                    <div class="mr-3">\
-                        <div class="icon-circle bg-success">\
-                            <i class="fas fa-image text-white"></i>\
+    function fetchnotification(){
+        $.ajax({
+            type: 'GET',
+            url: '/fetchnotification',
+            dataType: 'json',
+            success: function(response) {
+                $('.notificationFetch').html('');
+                $.each(response.data,function(key, item){
+                $('.notificationCount').append('<span class="badge badge-danger badge-counter">'+item.count+'+</span>');
+                var date = new Date(item.created_at).toLocaleDateString()
+                $('.notificationFetch').append('<div class="text-xs"> <a class="dropdown-item d-flex align-items-center" href="#">\
+                        <div class="mr-3">\
+                            <div class="icon-circle bg-success">\
+                                <i class="fas fa-image text-white"></i>\
+                            </div>\
                         </div>\
-                    </div>\
-                    <div>\
-                        <div class="small text-gray-500">'+date+'</div>\
-                        '+item.notification+'\
-                    </div>\
-                </a>');
-
-            })
-         }
-    })
-
+                        <div>\
+                            <div class="small text-gray-500">'+date+'</div>\
+                            '+item.notification+'\
+                        </div>\
+                    </a>\
+                    </div>');
+                })
+            }
+        })
     }
 })
-
 </script>
+<?php $__env->stopSection(); ?>
 <?php /**PATH C:\laragon\www\aeycontacts\resources\views/partials/navbar.blade.php ENDPATH**/ ?>

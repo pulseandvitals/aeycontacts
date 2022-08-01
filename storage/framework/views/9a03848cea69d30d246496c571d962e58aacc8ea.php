@@ -15,7 +15,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Email Address')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
+                                <input id="email" type="email" class="form-control rounded-0 <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -43,7 +43,7 @@ unset($__errorArgs, $__bag); ?>
                             <label for="password" class="col-md-4 col-form-label text-md-end"><?php echo e(__('Password')); ?></label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
+                                <input id="password" type="password" class="form-control rounded-0 <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -82,7 +82,7 @@ unset($__errorArgs, $__bag); ?>
 
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary rounded-0">
                                     <?php echo e(__('Login')); ?>
 
                                 </button>

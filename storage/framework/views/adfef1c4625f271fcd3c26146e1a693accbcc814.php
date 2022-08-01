@@ -1,28 +1,28 @@
 
-<?php echo $__env->make('modals.post-card-js', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <?php $__env->startSection('content'); ?>
-<style>
-  .card-deck{
-    margin-top: 10px;
-    margin-left: auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    grid-gap: .5rem;
-}
-</style>
+
 <div class="container-fluid">
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Post Feed</h1>
 
         <div class="d-none d-sm-inline-block">
-            <button class="btn btn-sm btn-info shadow-sm" data-toggle="modal" data-target="#addpostcard">
-              <i class="fas fa-plus fa-sm text-white-50"></i>Add Postcard</button>
+          <?php if(Auth::user()->role == 'employer'): ?>
+            <button class="btn btn-sm btn-dark shadow-sm" data-toggle="modal" data-target="#addpostcard">
+              <i class="fas fa-plus fa-sm text-white-50"></i> Add
+            </button>
+          <?php endif; ?>
         </div>
     </div>
     <!-- Content Row -->
 
-    <div class="card-deck">
+    <div class="card-deck feedFetch"
+    style="grid-gap: .5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: grid;
+    margin-left: auto;
+    margin-top: 10px;">
+
   <!---fetchdata-->
   <div class="spinner-border text-secondary" role="status">
   <span class="sr-only">Loading...</span>
@@ -82,6 +82,96 @@
     class="toast bg-success text-white toastupdate"
     style="position: fixed; bottom: 30px; right: 10px;">
 </div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
+<script>
+
+$(document).ready(function(){
+    fetchpostcard();
+    function fetchpostcard(){
+        $.ajax({
+            type: 'GET',
+            url: 'fetch-postcard',
+            dataType: 'json',
+            success: function(response) {
+            console.log(response);
+            $('.feedFetch').html('');
+            $.each(response.data,function(key, item){
+            var date = new Date(item.created_at).toLocaleDateString()
+              if(item) {
+            $('.feedFetch').append('<div class="card border-dark">\
+                <img class="card-img-top" src="images/'+ item.image +'" alt="Card image cap">\
+                <div class="card-body">\
+                  <h5 class="card-title">'+ item.postcard_title +'</h5>\
+                    <p class="card-text text-sm">'+ item.postcard_caption +'</p>\
+                    <p class="card-text"><small class="text-muted" style="position:absolute; bottom:10px;left:10px;">'+ date+'</small></p>\
+                  <button type="button" class="btn btn-primary btn-sm btn-collab" style="position: absolute; bottom:10px;right:10px;" id="applycollab" value="'+item.id+'"><i class="fa fa-plus tag"> Apply Collaboration</i></button>\
+                 </div>\
+                </div>');
+              }
+                else {
+                  $('.feedFetch').append('<span class="text-center text-muted"> No post found. </span>')
+              }
+            })
+            }
+        })
+
+    }
+    $(document).on('click','#applycollab',function (e){
+    e.preventDefault();
+    var collab_id = $(this).val();
+    $('#collab_id').val(collab_id);
+    $('#modalcollab').modal('show');
+  })
+
+    $(document).on('click','#applycollab', function(e){
+        e.preventDefault();
+        var collab_id = $(this).val();
+        $(this).removeClass('btn btn-primary');
+        $('.tag').removeClass('fa fa-plus');
+        $(this).addClass('btn btn-outline-success');
+        $('.tag').addClass('fa fa-check');
+
+    })
+
+
+    $('#postcard_form').on('submit',function(e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        formData.append('postcard_title',$('#postcard_title').val());
+        formData.append('postcard_caption',$('#postcard_caption').val());
+        $.ajax({
+            type:'POST',
+            url:'/add-postcard',
+            data: formData,
+            cache: false,
+            contentType:false,
+            processData:false,
+            success: function(response){
+                if(response.status == 400){
+                    console.log(response.error)
+                    $('.toasterror').toast({animation:true,delay:2000});
+                    $('.toasterror').toast('show');
+                    $('.toasterror').html('');
+                    $('.toasterror').append('<div class="toast-body">'+response.error+'</div>');
+                }
+                else{
+                    console.log(response.success)
+                    $('#addpostcard').modal('hide');
+                    $('.toastadded').toast({animation:true,delay:2000});
+                    $('.toastadded').toast('show');
+                    $('.toastadded').html('');
+                    $('.toastadded').append('<div class="toast-body">'+response.success+'</div>');
+                    fetchpostcard();
+                }
+
+            }
+        })
+    })
+ })
+
+</script>
+
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\aeycontacts\resources\views/cards-feed/post-cards.blade.php ENDPATH**/ ?>

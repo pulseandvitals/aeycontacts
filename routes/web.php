@@ -1,14 +1,16 @@
 <?php
 
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\StickyNoteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostcardController;
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\JobOffersContoller;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +30,35 @@ Route::get('/', function () {
 //dashboardview
 Route::get('/dashboard',[DashboardController::class,'index']);
 
+//users
 Route::post('/status', [UserController::class,'changeStatus']);
+Route::get('/users', [UserController::class, 'index'])->name('users.active-list');
+Route::get('/user-show/{id}',[UserController::class,'show'])->name('user.show');
 
+//emploer job offer
+Route::get('/job-offers', [JobOffersContoller::class, 'index'])->name('job.offers.list');
+Route::get('/job-offer-create',[JobOffersContoller::class,'jobOfferIndex'])->name('job.offer.create');
+Route::get('/job-offer-show/{id}',[JobOffersContoller::class,'show'])->name('job.offer.show');
+Route::post('/create',[JobOffersContoller::class,'create'])->name('job.offer.submit.create');
+//report
+Route::post('/user-report/{id}',[ReportController::class,'store'])->name('user.report');
+//profile
+Route::get('/profile-add',[ProfileController::class,'index'])->name('profile.add');
+Route::post('/profile-create',[ProfileController::class,'create'])->name('profile.create');
+Route::get('/profile-edit/{id}',[ProfileController::class,'edit'])->name('profile.edit');
+Route::post('/profile-update/{profile}',[ProfileController::class,'update'])->name('profile.update');
+Route::get('/profile-show/{id}',[ProfileController::class,'show'])->name('profile.show');
+Route::post('/upload-photo',[ProfileController::class,'uploadProfile'])->name('upload.profile');
+
+
+//message route
+Route::get('/profile-message/{id}',[MessageController::class,'messageIndex'])->name('profile.message.view');
+Route::get('/message-index',[MessageController::class,'index'])->name('message.index.view');
+Route::post('/destroy-message/{id}',[MessageController::class,'destroy'])->name('destroy.message');
+Route::get('/sent-items',[MessageController::class,'sentItems'])->name('sent.items');
+Route::post('/message-sent/{id}',[MessageController::class, 'storeMessage'])->name('message.sent.store');
+Route::get('/show-message/{message}',[MessageController::class,'show'])->name('show.message');
+//dashboardMessage route
 
 //contact route
 Route::get('/contacts',[ContactsController::class,'index']);
@@ -46,12 +75,11 @@ Route::get('/fetchnote',[StickyNoteController::class,'fetchnote']);
 Route::delete('/delete-note/{id}',[StickyNoteController::class,'deletenote']);
 
 //post cards
-Route::get('/post-cards',[PostcardController::class,'index']);
+Route::get('/feed',[PostcardController::class,'index'])->name('job.feed');
 Route::post('/add-postcard',[PostcardController::class,'addpostcard']);
 Route::get('/fetch-postcard',[PostcardController::class,'fetchpostcard']);
 
 //api
-Route::get('api',[ApiController::class,'index']);
 
 //landpage
 Route::get('/landpage',[DashboardController::class,'landpage']);

@@ -12,7 +12,7 @@ class PostcardController extends Controller
 {
     public function index(){
 
-    return view('cards-feed.post-cards');
+    return view('Feed.index');
 
     }
     public function fetchpostcard(){
@@ -25,10 +25,11 @@ class PostcardController extends Controller
     }
     public function fetchnotification(){
 
-      $fetch = Notification::orderBy('id','DESC')->get();
-      return response()->json([
-        'data' => $fetch,
-      ]);
+      $fetch = Notification::where('user_id',Auth::user()->id)
+              ->orderBy('id','DESC')->count();
+        return response()->json([
+          'data' => $fetch,
+        ]);
     }
     public function addpostcard(){
         $validator = Validator::make(request()->all(), [
@@ -69,7 +70,7 @@ class PostcardController extends Controller
             ]);
 
           }
-  
+
     }
- 
+
 }

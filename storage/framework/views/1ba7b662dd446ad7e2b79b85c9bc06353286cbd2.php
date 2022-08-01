@@ -12,6 +12,7 @@
                 // console.log(response.contacts);
                 $('tbody').html("");
                 $.each(response.contacts, function(key, item){
+                if(item != null) {
                     $('tbody').append('<tr>\
                     <th scope="row">'+item.name+'</th>\
                     <td>'+item.city_address+'</td>\
@@ -22,6 +23,12 @@
                     <button type="button" class="btn btn-danger btn-sm btn-delete" id="delete" value="'+item.id+'"><i class="fa fa-trash"></i></button>\
                     </td>\
                     </tr>');
+                }
+                else {
+                    $('.noData').append('<div class="text-center">\
+                    <span class="text-muted"> Nothing Found. </span>\
+                    </div>');
+                    }
                 });
             }
         });
@@ -44,7 +51,6 @@
             console.log(response.error);
         }
         else {
-            
             $('#edit_name').val(response.contact.name);
             $('#city_address').val(response.contact.city_address);
             $('#dial_number').val(response.contact.dial_address);
@@ -100,7 +106,7 @@
     e.preventDefault();
     var del_id = $(this).val();
     $('#del_id').val(del_id);
-    $('#del_modal').modal('show');   
+    $('#del_modal').modal('show');
   })
   $(document).on('click','#submit_delete', function (e) {
    e.preventDefault();
@@ -144,7 +150,7 @@
         url: '/addcontact',
         data: data,
         dataType:'json',
-        success: function(response){      
+        success: function(response){
             if(response.error == 400){
                 console.log(response.error);
                 $('.toasterror').toast({animation:true,delay:2000});
@@ -161,11 +167,12 @@
                 $('.toastadded').toast('show');
                 $('.toastadded').html('');
                 $('.toastadded').append('<div class="toast-body">'+response.success+'</div>');
-                
+
             }
         }
     })
 });
 });
 </script>
-<?php $__env->stopSection(); ?><?php /**PATH C:\laragon\www\aeycontacts\resources\views/modals/contact-list-modal.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?>
+<?php /**PATH C:\laragon\www\aeycontacts\resources\views/modals/contact-list-modal.blade.php ENDPATH**/ ?>

@@ -2,25 +2,17 @@
 <html lang="en">
 
 <head>
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0- 
-     alpha/css/bootstrap.css" rel="stylesheet">
-	
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-	<link rel="stylesheet" type="text/css" 
-     href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-	
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link href="<?php echo e(asset('vendor/fontawesome-free/css/all.min.css')); ?>" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('images/aey-logo5.png')); ?>">
 
-    <title>AeBOOK</title>
+    <title><?php echo $__env->yieldContent('title', 'Aey'); ?> - <?php echo e(config('app.name')); ?></title>
 
-    <!-- Custom fonts for this template-->  
+    <!-- Custom fonts for this template-->
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -107,8 +99,9 @@
 
     <!-- Page level custom scripts -->
     <script src="<?php echo e(asset('js/charts/chart-area-demo.js')); ?>"></script>
-    <script src="<?php echo e(asset('js/charts/chart-pie-demo.js')); ?>"></script> 
+    <script src="<?php echo e(asset('js/charts/chart-pie-demo.js')); ?>"></script>
     <?php echo $__env->yieldContent('scripts'); ?>
 </body>
-  
-</html><?php /**PATH C:\laragon\www\aeycontacts\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
+
+</html>
+<?php /**PATH C:\laragon\www\aeycontacts\resources\views/layouts/admin.blade.php ENDPATH**/ ?>
